@@ -61,7 +61,7 @@ namespace Task2
             return student;
         }
 
-        public string Deconstruct()
+        public string Serialize()
         {
             return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
         }

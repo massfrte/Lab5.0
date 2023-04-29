@@ -18,7 +18,7 @@ namespace Task2
 
             PurgeEveryBadStudentOfScholarship(students);
 
-            WriteAllLines(path, students.Select(x => x.Deconstruct()).ToArray());
+            WriteAllLines(path, students.Select(x => x.Serialize()).ToArray());
         }
 
         static void PurgeEveryBadStudentOfScholarship(List<Student> students)
