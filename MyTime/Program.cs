@@ -4,7 +4,19 @@
     {
         static void Main()
         {
+            MyTime myTime = new MyTime(23, 59, 59);
+            Console.WriteLine(myTime);
 
+            Console.WriteLine(TimeSinceMidnight(myTime));
+
+            Console.WriteLine(TimeSinceMidnight(86399));
+
+            Console.WriteLine(AddOneSecond(myTime));
+            Console.WriteLine(AddOneMinute(myTime));
+            Console.WriteLine(AddOneHour(myTime));
+            Console.WriteLine(AddSeconds(myTime, 12));
+
+            Console.WriteLine(Difference(myTime, new MyTime(23, 59, 0)));
         }
 
         static int TimeSinceMidnight(MyTime t)
@@ -17,6 +29,7 @@
             int hour = t / 3600 % 24;
             int minute = t / 60 % 60;
             int second = t % 60;
+
             return new MyTime(hour, minute, second);
         }
 
@@ -31,6 +44,7 @@
         {
             int secondsSinceMidnight = TimeSinceMidnight(t);
             secondsSinceMidnight = (secondsSinceMidnight + 60) % (24 * 3600);
+
             return TimeSinceMidnight(secondsSinceMidnight);
         }
 
@@ -38,6 +52,7 @@
         {
             int secondsSinceMidnight = TimeSinceMidnight(t);
             secondsSinceMidnight = (secondsSinceMidnight + 3600) % (24 * 3600);
+
             return TimeSinceMidnight(secondsSinceMidnight);
         }
 
@@ -45,21 +60,10 @@
         {
             int secondsSinceMidnight = TimeSinceMidnight(t);
             secondsSinceMidnight = (secondsSinceMidnight + s) % (24 * 3600);
+
             return TimeSinceMidnight(secondsSinceMidnight);
         }
 
-        static int Difference(MyTime mt1, MyTime mt2)
-        {
-            int seconds1 = TimeSinceMidnight(mt1);
-            int seconds2 = TimeSinceMidnight(mt2);
-            if (seconds1 > seconds2)
-            {
-                return seconds1 - seconds2;
-            }
-            else
-            {
-                return seconds2 - seconds1;
-            }
-        }
+        static int Difference(MyTime mt1, MyTime mt2) => Math.Abs(TimeSinceMidnight(mt1) - TimeSinceMidnight(mt2));
     }
 }

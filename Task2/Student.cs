@@ -11,14 +11,15 @@ namespace Task2
         [Mark] public char PhysicsMark { get; private set; }
         [Mark] public char InformaticsMark { get; private set; }
 
+        [JsonIgnore] public bool DoesHaveScholarship => Scholarship > 0;
+        [JsonIgnore] public bool IsBad => Grades.Any(x => char.GetNumericValue(x) < 3 || x == '-');
+
         public string Surname { get; private set; }
         public string FirstName { get; private set; }
         public string Patronymic { get; private set; }
         public string DateOfBirth { get; private set; }
         public char Sex { get; private set; }
         public int Scholarship { get; private set; }
-        public bool DoesHaveScholarship => Scholarship > 0;
-        public bool IsBad => Grades.Any(x => char.GetNumericValue(x) < 3 || x == '-');
         public char[] Grades
         {
             get
@@ -51,7 +52,7 @@ namespace Task2
         {
             if (!DoesHaveScholarship)
             {
-                Console.WriteLine("The student already doesn't have a scholarship.");
+                Console.WriteLine($"The student \"{Surname} {FirstName} {Patronymic}\" already doesn't have a scholarship.");
                 return this;
             }
 
@@ -70,7 +71,8 @@ namespace Task2
             return $"Surname: {Surname}\n" +
                 $"Math: {MathematicsMark}\n" +
                 $"Physics: {PhysicsMark}\n" +
-                $"IT: {InformaticsMark}\n";
+                $"IT: {InformaticsMark}\n" +
+                $"Scholarship: {Scholarship}\n";
         }
     }
 }

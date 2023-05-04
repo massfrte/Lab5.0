@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using System.Text.Encodings;
-using System.Text.Json;
 
 namespace Task2
 {
@@ -8,9 +6,11 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            var students = ParseAllStudents("input.txt", Encoding.Default).ToList();
+            var students = ParseAllStudents("input.txt", Encoding.UTF8).ToList();
 
             var badStudents = GetAllBadStudents(students);
+
+            PrintAll(badStudents);
 
             string path = @"data_new.json";
 
@@ -18,7 +18,15 @@ namespace Task2
 
             PurgeEveryBadStudentOfScholarship(students);
 
-            WriteAllLines(path, students.Select(x => x.Serialize()).ToArray());
+            WriteAllLines("data_new.txt", students.Select(x => x.Serialize()));
+        }
+
+        static void PrintAll<T>(IEnumerable<T> values) where T : struct
+        {
+            foreach (var v in values)
+            {
+                Console.WriteLine(v);
+            }
         }
 
         static void PurgeEveryBadStudentOfScholarship(List<Student> students)
@@ -32,14 +40,9 @@ namespace Task2
             }
         }
 
-        static void WriteAllLines(string filePath, string[] contents)
+        static void WriteAllLines(string filePath, IEnumerable<string> contents)
         {
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException(filePath);
-            }
-
-            using (StreamWriter fileStream = new StreamWriter(File.Open(filePath, FileMode.Open)))
+            using (StreamWriter fileStream = new StreamWriter(File.Open(filePath, FileMode.OpenOrCreate)))
             {
                 foreach (string line in contents)
                 {
