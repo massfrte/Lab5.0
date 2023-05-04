@@ -25,7 +25,7 @@ namespace Task2
             return lines;
         }
 
-        public static List<string> ExtractFields(string dataLine, string pattern)
+        public static List<string> ExtractData(string dataLine, string pattern)
         {
             var matches = Regex.Matches(dataLine, pattern);
 

@@ -17,7 +17,6 @@ namespace Task2
         public string DateOfBirth { get; private set; }
         public char Sex { get; private set; }
         public int Scholarship { get; private set; }
-
         public bool DoesHaveScholarship => Scholarship > 0;
         public bool IsBad => Grades.Any(x => char.GetNumericValue(x) < 3 || x == '-');
         public char[] Grades
@@ -35,7 +34,7 @@ namespace Task2
 
         public Student(string dataLine)
         {
-            var data = Parser.ExtractFields(dataLine, @"[\S-]+");
+            var data = Parser.ExtractData(dataLine, @"[\S-]+");
 
             Surname = data[0];
             FirstName = data[1];
@@ -48,15 +47,15 @@ namespace Task2
             Scholarship = int.Parse(data[8]);
         }
 
-        public Student EliminateHappiness()
+        public Student RemoveScholarship()
         {
             if (!DoesHaveScholarship)
             {
-                Console.WriteLine("The student already don't have a scholarship.");
+                Console.WriteLine("The student already doesn't have a scholarship.");
                 return this;
             }
 
-            Student student = (Student)this.MemberwiseClone();
+            Student student = (Student)MemberwiseClone();
             student.Scholarship = 0;
             return student;
         }

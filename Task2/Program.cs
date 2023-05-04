@@ -27,7 +27,7 @@ namespace Task2
             {
                 if (students[i].IsBad)
                 {
-                    students[i] = students[i].EliminateHappiness();
+                    students[i] = students[i].RemoveScholarship();
                 }
             }
         }
